@@ -39,7 +39,7 @@ class plugin_cf_turnstile {
 		
 		$response = $_POST['cf-turnstile-response'];
 		if (!$response) {
-			showmessage('請完成安全驗證 (Cloudflare Turnstile)');
+			showmessage(lang('plugin/cf_turnstile', 'please_verify'));
 		}
 
 		$url = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
@@ -59,7 +59,7 @@ class plugin_cf_turnstile {
 
 		$result = json_decode($result, true);
 		if (!$result['success']) {
-			showmessage('安全驗證失敗，請重試');
+			showmessage(lang('plugin/cf_turnstile', 'verify_fail'));
 		}
 		return true;
 	}
