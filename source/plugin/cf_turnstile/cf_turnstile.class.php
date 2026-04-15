@@ -29,9 +29,26 @@ class plugin_cf_turnstile {
 
 	protected function _show_widget() {
 		if (!$this->sitekey) return '';
-		return '<div class="cf-turnstile-container" style="margin: 10px 0;">
-					<div class="cf-turnstile" data-sitekey="' . $this->sitekey . '"></div>
-				</div>';
+		return '<style>
+					.cf-turnstile-wrapper { 
+						margin: 15px 0; 
+						width: 100%; 
+						display: flex; 
+						justify-content: center; 
+						clear: both;
+					}
+					.cf-turnstile-wrapper .cf-turnstile { 
+						display: inline-block; 
+					}
+				</style>
+				<div class="cf-turnstile-wrapper">
+					<div class="cf-turnstile" data-sitekey="' . $this->sitekey . '" data-size="normal"></div>
+				</div>
+				<script>
+					if(typeof turnstile !== "undefined") {
+						turnstile.implicitRender();
+					}
+				</script>';
 	}
 
 	protected function _verify() {
@@ -39,7 +56,7 @@ class plugin_cf_turnstile {
 		
 		$response = $_POST['cf-turnstile-response'];
 		if (!$response) {
-			showmessage(lang('plugin/cf_turnstile', 'please_verify'));
+			showmessage($this->_t('please_verify'));
 		}
 
 		$url = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
@@ -59,9 +76,21 @@ class plugin_cf_turnstile {
 
 		$result = json_decode($result, true);
 		if (!$result['success']) {
-			showmessage(lang('plugin/cf_turnstile', 'verify_fail'));
+			showmessage($this->_t('verify_fail'));
 		}
 		return true;
+	}
+
+	protected function _t($key) {
+		$msg = lang('plugin/cf_turnstile', $key);
+		if(strpos($msg, ':') !== false || $msg == $key) {
+			$lang = array(
+				'verify_fail' => '安全驗證失敗，請重試',
+				'please_verify' => '請完成安全驗證 (Cloudflare Turnstile)',
+			);
+			return isset($lang[$key]) ? $lang[$key] : $msg;
+		}
+		return $msg;
 	}
 }
 
@@ -82,6 +111,12 @@ class plugin_cf_turnstile_member extends plugin_cf_turnstile {
 
 	// Login
 	public function logging_input() {
+		if ($this->enabled_login) {
+			return $this->_show_widget();
+		}
+	}
+
+	public function logging_method() {
 		if ($this->enabled_login) {
 			return $this->_show_widget();
 		}

@@ -1,5 +1,5 @@
 <?php
-$plang = array(
+$plang['cf_turnstile'] = array(
 	'name' => 'Cloudflare Turnstile 驗證碼',
 	'desc' => '為 Discuz! 提供 Cloudflare Turnstile 防垃圾保護，支持註冊、登入、發帖等場景。',
 	'sitekey_title' => 'Site Key (站點金鑰)',
