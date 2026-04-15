@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<item id="Title"><![CDATA[Discuz! Plugin]]></item>
+	<item id="Version"><![CDATA[X3.5]]></item>
+	<item id="Time"><![CDATA[2024-04-15 19:30]]></item>
+	<item id="From"><![CDATA[Antigravity AI]]></item>
+	<item id="Data">
+		<item id="plugin">
+			<item id="available"><![CDATA[1]]></item>
+			<item id="adminid"><![CDATA[1]]></item>
+			<item id="name"><![CDATA[Cloudflare Turnstile 驗證碼]]></item>
+			<item id="identifier"><![CDATA[cf_turnstile]]></item>
+			<item id="description"><![CDATA[為 Discuz! 提供 Cloudflare Turnstile 防垃圾保護，支持註冊、登入、發帖等場景。]]></item>
+			<item id="copyright"><![CDATA[Antigravity]]></item>
+			<item id="modules">
+				<item id="0">
+					<item id="type"><![CDATA[11]]></item>
+					<item id="name"><![CDATA[cf_turnstile]]></item>
+					<item id="menu"><![CDATA[]]></item>
+					<item id="url"><![CDATA[]]></item>
+					<item id="adminid"><![CDATA[0]]></item>
+					<item id="displayorder"><![CDATA[0]]></item>
+					<item id="navtitle"><![CDATA[]]></item>
+					<item id="navicon"><![CDATA[]]></item>
+					<item id="navsubname"><![CDATA[]]></item>
+					<item id="navsuburl"><![CDATA[]]></item>
+				</item>
+			</item>
+		</item>
+		<item id="version"><![CDATA[X3.5,X4.0,X5.0]]></item>
+		<item id="var">
+			<item id="0">
+				<item id="displayorder"><![CDATA[1]]></item>
+				<item id="title"><![CDATA[Site Key (站點金鑰)]]></item>
+				<item id="description"><![CDATA[Cloudflare Turnstile 的 Site Key]]></item>
+				<item id="variable"><![CDATA[sitekey]]></item>
+				<item id="type"><![CDATA[text]]></item>
+				<item id="value"><![CDATA[]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+			<item id="1">
+				<item id="displayorder"><![CDATA[2]]></item>
+				<item id="title"><![CDATA[Secret Key (通信金鑰)]]></item>
+				<item id="description"><![CDATA[Cloudflare Turnstile 的 Secret Key]]></item>
+				<item id="variable"><![CDATA[secretkey]]></item>
+				<item id="type"><![CDATA[text]]></item>
+				<item id="value"><![CDATA[]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+			<item id="2">
+				<item id="displayorder"><![CDATA[3]]></item>
+				<item id="title"><![CDATA[啟用註冊驗證]]></item>
+				<item id="description"><![CDATA[]]></item>
+				<item id="variable"><![CDATA[enabled_reg]]></item>
+				<item id="type"><![CDATA[radio]]></item>
+				<item id="value"><![CDATA[1]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+			<item id="3">
+				<item id="displayorder"><![CDATA[4]]></item>
+				<item id="title"><![CDATA[啟用登入驗證]]></item>
+				<item id="description"><![CDATA[]]></item>
+				<item id="variable"><![CDATA[enabled_login]]></item>
+				<item id="type"><![CDATA[radio]]></item>
+				<item id="value"><![CDATA[1]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+			<item id="4">
+				<item id="displayorder"><![CDATA[5]]></item>
+				<item id="title"><![CDATA[啟用發新帖驗證]]></item>
+				<item id="description"><![CDATA[]]></item>
+				<item id="variable"><![CDATA[enabled_thread]]></item>
+				<item id="type"><![CDATA[radio]]></item>
+				<item id="value"><![CDATA[1]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+			<item id="5">
+				<item id="displayorder"><![CDATA[6]]></item>
+				<item id="title"><![CDATA[啟用回帖驗證]]></item>
+				<item id="description"><![CDATA[]]></item>
+				<item id="variable"><![CDATA[enabled_reply]]></item>
+				<item id="type"><![CDATA[radio]]></item>
+				<item id="value"><![CDATA[1]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+		</item>
+	</item>
+</root>
