@@ -24,11 +24,14 @@ class plugin_cf_turnstile {
 
 	public function global_header() {
 		if (!$this->sitekey) return '';
-		return '<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>';
+		return '<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>';
 	}
 
 	protected function _show_widget() {
 		if (!$this->sitekey) return '';
+		
+		$widget_id = 'cft_' . substr(md5(uniqid(rand(), true)), 0, 8);
+		
 		return '<style>
 					.cf-turnstile-wrapper { 
 						margin: 15px 0; 
@@ -42,12 +45,20 @@ class plugin_cf_turnstile {
 					}
 				</style>
 				<div class="cf-turnstile-wrapper">
-					<div class="cf-turnstile" data-sitekey="' . $this->sitekey . '" data-size="normal"></div>
+					<div id="' . $widget_id . '" class="cf-turnstile"></div>
 				</div>
 				<script>
-					if(typeof turnstile !== "undefined") {
-						turnstile.implicitRender();
-					}
+					var render_' . $widget_id . ' = function() {
+						if(typeof turnstile !== "undefined") {
+							turnstile.render("#' . $widget_id . '", {
+								sitekey: "' . $this->sitekey . '",
+								size: "normal"
+							});
+						} else {
+							setTimeout(render_' . $widget_id . ', 100);
+						}
+					};
+					render_' . $widget_id . '();
 				</script>';
 	}
 
@@ -96,9 +107,13 @@ class plugin_cf_turnstile {
 
 class plugin_cf_turnstile_member extends plugin_cf_turnstile {
 
+	protected $_rendered_reg = false;
+	protected $_rendered_login = false;
+
 	// Registration
 	public function register_input() {
-		if ($this->enabled_reg) {
+		if ($this->enabled_reg && !$this->_rendered_reg) {
+			$this->_rendered_reg = true;
 			return $this->_show_widget();
 		}
 	}
@@ -111,13 +126,15 @@ class plugin_cf_turnstile_member extends plugin_cf_turnstile {
 
 	// Login
 	public function logging_input() {
-		if ($this->enabled_login) {
+		if ($this->enabled_login && !$this->_rendered_login) {
+			$this->_rendered_login = true;
 			return $this->_show_widget();
 		}
 	}
 
 	public function logging_method() {
-		if ($this->enabled_login) {
+		if ($this->enabled_login && !$this->_rendered_login) {
+			$this->_rendered_login = true;
 			return $this->_show_widget();
 		}
 	}
@@ -131,8 +148,12 @@ class plugin_cf_turnstile_member extends plugin_cf_turnstile {
 
 class plugin_cf_turnstile_forum extends plugin_cf_turnstile {
 
+	protected $_rendered_thread = false;
+	protected $_rendered_reply = false;
+
 	public function post_newthread_input() {
-		if ($this->enabled_thread) {
+		if ($this->enabled_thread && !$this->_rendered_thread) {
+			$this->_rendered_thread = true;
 			return $this->_show_widget();
 		}
 	}
@@ -144,7 +165,8 @@ class plugin_cf_turnstile_forum extends plugin_cf_turnstile {
 	}
 
 	public function post_reppost_input() {
-		if ($this->enabled_reply) {
+		if ($this->enabled_reply && !$this->_rendered_reply) {
+			$this->_rendered_reply = true;
 			return $this->_show_widget();
 		}
 	}
